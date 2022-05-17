@@ -23,8 +23,8 @@
         </div>
         <div class="col-2">
           <ul>
-            <router-link class="link" :to="{ name: 'home' }">Home</router-link>
-            <router-link class="link" :to="{ name: 'blogs' }"
+            <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
+            <router-link class="link" :to="{ name: 'Blogs' }"
               >Blogs</router-link
             >
             <router-link v-if="user" class="link" :to="{ name: 'newpost' }"
@@ -93,6 +93,9 @@ footer {
         color: #fff;
         text-decoration: none;
         font-weight: 600;
+        @media (max-width: 800px) {
+          text-align: center;
+        }
       }
       ul {
         gap: 16px;
