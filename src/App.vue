@@ -3,15 +3,17 @@
     <div class="app">
       <NavigationComp />
       <router-view />
+      <FooterComp />
     </div>
   </div>
 </template>
 
 <script>
 import NavigationComp from "@/components/NavigationComp.vue";
+import FooterComp from "@/components/FooterComp.vue";
 export default {
   name: "app",
-  components: { NavigationComp },
+  components: { NavigationComp, FooterComp },
   data() {
     return {};
   },
