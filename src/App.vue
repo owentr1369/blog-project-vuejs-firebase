@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <NavigationComp />
+      <NavigationComp v-if="!navigation" />
       <router-view />
-      <FooterComp />
+      <FooterComp v-if="!navigation" />
     </div>
   </div>
 </template>
@@ -15,12 +15,32 @@ export default {
   name: "app",
   components: { NavigationComp, FooterComp },
   data() {
-    return {};
+    return {
+      navigation: null,
+    };
   },
-  created() {},
+  created() {
+    this.checkRoute();
+  },
   mounted() {},
-  methods: {},
-  watch: {},
+  methods: {
+    checkRoute() {
+      if (
+        this.$route.name === "Login" ||
+        this.$route.name === "Register" ||
+        this.$route.name === "ForgotPassword"
+      ) {
+        this.navigation = true;
+        return;
+      }
+      this.navigation = false;
+    },
+  },
+  watch: {
+    $route() {
+      this, this.checkRoute();
+    },
+  },
 };
 </script>
 
