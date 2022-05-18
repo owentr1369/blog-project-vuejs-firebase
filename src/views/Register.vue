@@ -44,8 +44,22 @@ import User from "../assets/Icons/user-alt-light.svg";
 export default {
   components: { Email, Password, User },
   name: "Register",
+  data() {
+    return {
+      firstName: null,
+      lastName: null,
+      username: null,
+      email: null,
+      password: null,
+    };
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.register {
+  h2 {
+    max-width: 350px;
+  }
+}
 </style>
