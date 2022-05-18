@@ -10,7 +10,11 @@
       <div class="container">
         <h3>View More Recent Blogs</h3>
         <div class="blog-cards">
-          <BlogCardComp v-for="(post, index) in sampleBlogCards" :key="index" />
+          <BlogCardComp
+            :post="post"
+            v-for="(post, index) in sampleBlogCards"
+            :key="index"
+          />
         </div>
       </div>
     </div>
