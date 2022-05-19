@@ -29,6 +29,9 @@
           <input type="password" placeholder="Password" v-model="password" />
           <Password class="icon" />
         </div>
+        <div class="error" v-show="error">
+          {{ this.errorMsg }}
+        </div>
       </div>
       <button>Sign Up</button>
       <div class="angle" />
@@ -41,6 +44,10 @@
 import Email from "../assets/Icons/envelope-regular.svg";
 import Password from "../assets/Icons/lock-alt-solid.svg";
 import User from "../assets/Icons/user-alt-light.svg";
+import "firebase/auth";
+import firebase from "firebase/app";
+import db from "../firebase/firebaseInit";
+
 export default {
   components: { Email, Password, User },
   name: "Register",
@@ -51,7 +58,41 @@ export default {
       username: null,
       email: null,
       password: null,
+      error: null,
+      errorMsg: "",
     };
+  },
+  methods: {
+    async register() {
+      if (
+        this.email !== "" ||
+        this.password !== "" ||
+        this.firstName !== "" ||
+        this.lastName !== "" ||
+        this.username !== ""
+      ) {
+        this.error = false;
+        this.errorMsg = "";
+        const firebaseAuth = await firebase.auth();
+        const createUser = await firebaseAuth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        const result = await createUser;
+        const dataBase = db.collection("users").doc(result.user.uid);
+        await dataBase.set({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          email: this.email,
+        });
+
+        this.$router.push({ name: "Home" });
+        return;
+      }
+      this.error = true;
+      this.errorMsg = "Please fill out all the fields!";
+    },
   },
 };
 </script>
